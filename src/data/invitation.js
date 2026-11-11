@@ -4,11 +4,13 @@ export const invitation = {
   groom: {
     first: 'Ukkasha',
     full: 'Ukkasha',
+    qualification: 'B.Com., BAA (ICAI)', // shown under the name; '' to hide
     parents: 'Naina Mohamed',
   },
   bride: {
     first: 'Hafsa',
     full: 'Hafsa',
+    qualification: 'Alima',
     parents: 'Shafeeq Ahamed',
   },
 
@@ -21,7 +23,7 @@ export const invitation = {
   },
 
   blessing: {
-    title: 'A Blessed Beginning',
+    title: 'Blessed Beginning',
     text: 'With hearts full of gratitude, we warmly invite you to join us as we celebrate this beautiful promise with the love, prayers, and blessings of our families.',
   },
 

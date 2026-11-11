@@ -6,7 +6,7 @@ import { Flourish } from './Ornaments'
 //   playing → curtains part, camera glides into the hero frame (intro.mp4)
 //   leaving → overlay fades out over the hero, which shows the same final frame
 //   done    → overlay removed
-const PLAYBACK_RATE = 1 // the 10.3s film plays at its natural pace
+const PLAYBACK_RATE = 1.25 // 10.2s film plays in ~8.2s (1 = natural pace)
 const END_LEAD = 0.3 // seconds before the end to start the hand-off
 const SAFETY_MS = 14000 // finish even if the video stalls
 

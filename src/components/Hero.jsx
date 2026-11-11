@@ -21,6 +21,11 @@ export default function Hero({ data, ready }) {
           <h1 className="hero-name hero-item" style={{ '--d': 3 }}>
             {groom.full}
           </h1>
+          {groom.qualification && (
+            <p className="hero-qual hero-item" style={{ '--d': 3 }}>
+              {groom.qualification}
+            </p>
+          )}
           <p className="hero-parents hero-item" style={{ '--d': 4 }}>
             S/o {groom.parents}
           </p>
@@ -30,6 +35,11 @@ export default function Hero({ data, ready }) {
           <h1 className="hero-name hero-item" style={{ '--d': 6 }}>
             {bride.full}
           </h1>
+          {bride.qualification && (
+            <p className="hero-qual hero-item" style={{ '--d': 6 }}>
+              {bride.qualification}
+            </p>
+          )}
           <p className="hero-parents hero-item" style={{ '--d': 7 }}>
             D/o {bride.parents}
           </p>

@@ -284,7 +284,7 @@ p {
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 .hero-divider {
-  margin: 1cqh auto 1.8cqh;
+  margin: 0.8cqh auto 1.3cqh;
 }
 .hero-divider .divider-line {
   width: 44px;
@@ -309,9 +309,19 @@ p {
   font-size: clamp(24px, min(5.1cqh, 6.4cqw), 44px);
   line-height: 1.2;
   color: #fff1e2;
-  margin-top: 1.2cqh;
+  margin-top: 1cqh;
   white-space: nowrap;
   text-shadow: 0 2px 14px rgba(40, 0, 0, 0.6);
+}
+.hero-qual {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: clamp(9.5px, 1.3cqh, 11.5px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+  text-shadow: 0 1px 6px rgba(40, 0, 0, 0.7);
+  margin-top: 0.2cqh;
 }
 .hero-parents {
   font-style: italic;
@@ -326,11 +336,11 @@ p {
   font-size: clamp(28px, 4.2cqh, 38px);
   line-height: 1;
   color: var(--gold-lt);
-  margin-top: 1.4cqh;
+  margin-top: 0.9cqh;
 }
 .hero-closing {
   max-width: 40cqw;
-  margin-top: 2.4cqh;
+  margin-top: 1.6cqh;
 }
 .scroll-cue {
   position: absolute;
