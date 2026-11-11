@@ -134,7 +134,12 @@ export function Closing({ data }) {
         <p className="couple">
           {groom.first} <span className="amp">&amp;</span> {bride.first}
         </p>
-        <p className="closing-footer">{closing.footer}</p>
+        {/* each " · " part on its own line, e.g. the date over the venue */}
+        <p className="closing-footer">
+          {closing.footer.split(' · ').map((part) => (
+            <span key={part}>{part}</span>
+          ))}
+        </p>
       </Reveal>
     </section>
   )
