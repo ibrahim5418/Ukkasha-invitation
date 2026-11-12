@@ -49,8 +49,13 @@ export default function Hero({ data, ready }) {
         </div>
       </div>
       <div className="scroll-cue hero-item" style={{ '--d': 9 }}>
-        <span>Scroll</span>
-        <i />
+        <div className="scroll-cue-bounce">
+          <span>Scroll</span>
+          <svg className="scroll-cue-arrow" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 7l6 6 6-6" />
+            <path d="M6 12l6 6 6-6" />
+          </svg>
+        </div>
       </div>
     </section>
   )

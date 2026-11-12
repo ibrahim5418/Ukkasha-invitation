@@ -350,32 +350,77 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  pointer-events: none;
+}
+.scroll-cue-bounce {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 6px 15px 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(236, 201, 133, 0.55);
+  background: rgba(60, 4, 8, 0.55);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.45),
+    0 0 14px rgba(236, 201, 133, 0.25);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   font-family: var(--sans);
-  font-size: 10.5px;
-  letter-spacing: 0.24em;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  /* letter-spacing adds trailing space; balance it so the word stays centred */
+  text-indent: 0.26em;
   text-transform: uppercase;
-  color: #f2dcc4;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+  color: #ffe7b8;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 0 10px rgba(236, 201, 133, 0.6);
+  /* start jumping once the hero has faded in */
+  animation: cue-bounce 2s ease-in-out 2.2s infinite;
 }
-.scroll-cue i {
-  display: block;
-  width: 1px;
-  height: 30px;
-  background: linear-gradient(#f2dcc4, transparent);
-  animation: cue 2s ease-in-out infinite;
-  transform-origin: top;
+.scroll-cue-arrow {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: #ecc985;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
 }
-@keyframes cue {
-  0% {
-    transform: scaleY(0);
+.scroll-cue-arrow path:first-child {
+  animation: cue-fade 2s ease-in-out 2.2s infinite;
+}
+@keyframes cue-bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-14px);
+  }
+  60% {
+    transform: translateY(-7px);
+  }
+}
+@keyframes cue-fade {
+  0%,
+  100% {
+    opacity: 1;
   }
   50% {
-    transform: scaleY(1);
+    opacity: 0.35;
   }
-  100% {
-    transform: scaleY(1);
-    opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-bounce,
+  .scroll-cue-arrow path:first-child {
+    animation: none;
   }
 }
 
