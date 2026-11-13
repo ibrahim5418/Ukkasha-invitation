@@ -342,22 +342,36 @@ p {
   max-width: 40cqw;
   margin-top: 1.6cqh;
 }
-.scroll-cue {
+/* ---------- one-time "scroll down" hint (see hooks/useScrollHint.js) ---------- */
+.scroll-hint {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 2.5svh;
+  z-index: 5;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    visibility 0s linear 0.6s;
 }
-.scroll-cue-bounce {
+.scroll-hint:not(.is-off) {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+.scroll-hint-btn {
+  pointer-events: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
-  padding: 6px 15px 4px;
+  padding: 7px 16px 3px;
   border-radius: 999px;
   border: 1px solid rgba(236, 201, 133, 0.55);
   background: rgba(60, 4, 8, 0.55);
@@ -366,60 +380,93 @@ p {
     0 0 14px rgba(236, 201, 133, 0.25);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+  cursor: pointer;
   font-family: var(--sans);
   font-weight: 700;
   font-size: 11px;
   letter-spacing: 0.26em;
-  /* letter-spacing adds trailing space; balance it so the word stays centred */
+  /* letter-spacing adds trailing space; balance it so the words stay centred */
   text-indent: 0.26em;
   text-transform: uppercase;
   color: #ffe7b8;
   text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.9),
     0 0 10px rgba(236, 201, 133, 0.6);
-  /* start jumping once the hero has faded in */
-  animation: cue-bounce 2s ease-in-out 2.2s infinite;
 }
-.scroll-cue-arrow {
-  width: 17px;
-  height: 17px;
+.scroll-hint-btn:focus-visible {
+  outline: 2px solid #f6dc9e;
+  outline-offset: 3px;
+}
+.scroll-hint-chevron {
+  width: 20px;
+  height: 20px;
   fill: none;
   stroke: #ecc985;
-  stroke-width: 2.6;
+  stroke-width: 2.8;
   stroke-linecap: round;
   stroke-linejoin: round;
   filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
 }
-.scroll-cue-arrow path:first-child {
-  animation: cue-fade 2s ease-in-out 2.2s infinite;
+.scroll-hint.is-bouncing .scroll-hint-chevron {
+  animation: chevron-jump 1s infinite;
 }
-@keyframes cue-bounce {
-  0%,
-  20%,
-  50%,
-  80%,
+.scroll-hint.is-idle .scroll-hint-chevron {
+  animation: chevron-bob 2.4s ease-in-out infinite;
+}
+@keyframes chevron-jump {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.4);
+  }
+  40% {
+    transform: translateY(14px) scaleY(0.85);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  70% {
+    transform: translateY(-4px);
+    animation-timing-function: ease-in-out;
+  }
   100% {
     transform: translateY(0);
   }
-  40% {
-    transform: translateY(-14px);
-  }
-  60% {
-    transform: translateY(-7px);
+}
+@keyframes chevron-bob {
+  50% {
+    transform: translateY(4px);
   }
 }
-@keyframes cue-fade {
-  0%,
-  100% {
-    opacity: 1;
+
+/* the whole page hops: up 52px, down, up 20px, down, rest — 2s, played 5×.
+   Only .invite moves; fixed overlays sit outside it (see App.jsx). */
+html.hint-bounce .invite {
+  will-change: transform;
+  animation: page-bounce 2s 5;
+}
+@keyframes page-bounce {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  18% {
+    transform: translateY(-52px);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.4);
+  }
+  38% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
   }
   50% {
-    opacity: 0.35;
+    transform: translateY(-20px);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.4);
+  }
+  62%,
+  100% {
+    transform: translateY(0);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .scroll-cue-bounce,
-  .scroll-cue-arrow path:first-child {
+  html.hint-bounce .invite,
+  .scroll-hint .scroll-hint-chevron {
     animation: none;
   }
 }
