@@ -72,11 +72,13 @@ export default function App() {
             {section}
           </Fragment>
         ))}
-
-        <Intro media={invitation.media} onOpen={handleOpen} onDone={handleDone} />
-        <Petals burst={burst} />
-        <MusicToggle ref={music} src={invitation.music} />
       </main>
+
+      {/* fixed overlays live outside .invite: the scroll hint bounces it with a
+          transform, which would otherwise re-anchor anything position: fixed */}
+      <Intro media={invitation.media} onOpen={handleOpen} onDone={handleDone} />
+      <Petals burst={burst} />
+      <MusicToggle ref={music} src={invitation.music} />
     </>
   )
 }

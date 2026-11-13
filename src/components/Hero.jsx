@@ -1,9 +1,13 @@
+import { useRef } from 'react'
 import { Divider } from './Ornaments'
+import useScrollHint from '../hooks/useScrollHint'
 
 export default function Hero({ data, ready }) {
   const { bride, groom, hero, media } = data
+  const heroRef = useRef(null)
+  const { phase, scrollTo } = useScrollHint(ready)
   return (
-    <section className={`hero ${ready ? 'is-ready' : ''}`}>
+    <section ref={heroRef} className={`hero ${ready ? 'is-ready' : ''}`}>
       <img className="hero-bg stage-media" src={media.heroBg} alt="" draggable="false" />
       <div className="hero-shade" aria-hidden="true" />
       {/* same box as the cover-fitted background, so text stays inside the arch */}
@@ -48,14 +52,19 @@ export default function Hero({ data, ready }) {
           </p>
         </div>
       </div>
-      <div className="scroll-cue hero-item" style={{ '--d': 9 }}>
-        <div className="scroll-cue-bounce">
-          <span>Scroll</span>
-          <svg className="scroll-cue-arrow" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 7l6 6 6-6" />
-            <path d="M6 12l6 6 6-6" />
+      <div className={`scroll-hint is-${phase}`}>
+        <button
+          type="button"
+          className="scroll-hint-btn"
+          onClick={() => scrollTo(heroRef.current?.parentElement?.querySelector('.hero ~ section'))}
+          tabIndex={phase === 'off' ? -1 : 0}
+          aria-hidden={phase === 'off'}
+        >
+          <span>Scroll down</span>
+          <svg className="scroll-hint-chevron" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" />
           </svg>
-        </div>
+        </button>
       </div>
     </section>
   )
